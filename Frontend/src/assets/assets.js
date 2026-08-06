@@ -1,4 +1,4 @@
-import { FileSearch, KeyRound, TrendingUp, Target, ScanLine } from "lucide-react";
+import { FileSearch, KeyRound, TrendingUp, Target, ScanLine, LayoutDashboard, History, Settings } from "lucide-react";
 
 export const logoIcon = ScanLine;
 
@@ -44,3 +44,9 @@ export const footerLinks = [
   { name: "Contact", href: "#contact" },
   { name: "Privacy", href: "#privacy" },
 ];
+
+export const sideItems = [
+  { name: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+  { name: "Previous Analyzed", to: "/dashboard", icon: History },
+  { name: "Settings", to: "/settings", icon: Settings },
+]

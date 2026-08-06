@@ -1,7 +1,23 @@
 import React from "react";
 import { FileSearch } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Hero = () => {
+
+  const navigate = useNavigate()
+
+  const {user} = useAuth()
+
+  const handleDashboard = ()=>{
+    if(!user) return toast("Login to use this feature")
+    else {
+      navigate('/dashboard');
+      scroll(0,0)
+    }
+  }
+
   return (
     <section className="px-4! sm:px-6! lg:px-8! pt-12! md:pt-20! pb-16! max-w-7xl mx-auto!">
       <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -19,7 +35,7 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-8!">
-            <button className="flex items-center gap-2 px-5! py-3! rounded-lg font-medium text-white bg-gradFrom hover:bg-gradTo transition">
+            <button onClick={handleDashboard} className="flex items-center gap-2 px-5! py-3! rounded-lg font-medium text-white bg-gradFrom hover:bg-gradTo transition">
               <FileSearch size={18} />
               Analyze my resume free
             </button>

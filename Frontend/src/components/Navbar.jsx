@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="w-full sticky top-0 z-20 bg-bg border-b border-border">
       <div className="max-w-7xl mx-auto! flex items-center justify-between px-4! sm:px-6! lg:px-8! py-4! md:py-5!">
-        <div className="flex items-center gap-2">
+        <div onClick={()=> {if(user) navigate("/dashboard")}} className="flex items-center gap-2 cursor-pointer">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-gradFrom to-gradTo shrink-0">
             <LogoIcon size={18} className="text-white" />
           </div>
@@ -23,13 +23,13 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <p
               key={link.name}
               href={link.href}
               className="text-sm text-muted hover:text-primary transition"
             >
               {link.name}
-            </a>
+            </p>
           ))}
         </div>
 
