@@ -1,11 +1,27 @@
     import { useContext, useEffect } from "react";
     import { AuthContext } from "../services/auth.context.jsx";
-    import { login, registration, getMe, logout } from "../services/auth.api";
+    import { login, registration, getMe, logout, sendOTP } from "../services/auth.api";
+    import toast from "react-hot-toast";
 
 
     export const useAuth = () =>{
         const context = useContext(AuthContext)
-        const {user, setUser, loading, setLoading} = context
+        const {user, setUser, loading, setLoading,} = context
+
+        const handleSendOTP = async ({ username, email, password }) => {
+            setLoading(true);
+            try {
+                await sendOTP({username,email,password,});
+
+                return;
+
+            } catch (err) {
+                console.log(err);
+ 
+            } finally {
+                setLoading(false);
+            }
+        };
 
         const handleLogin = async ({email, password}) => {
             setLoading(true)
@@ -21,11 +37,10 @@
             }
         }
 
-        const handleRegistration = async ({username, email, password}) => {
-            setLoading(true)
+        const handleRegistration = async ({email, otp}) => {
             setLoading(true)
             try {
-                const data = await registration({username, email, password})
+                const data = await registration({email, otp})
                 setUser(data.user)
             }
             catch(err){
@@ -75,6 +90,7 @@
             handleLogin,
             handleRegistration,
             handleLogout,
+            handleSendOTP
         };
     }
 

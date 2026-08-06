@@ -7,6 +7,7 @@ import Protected from './components/Protected'
 import Dashboard from './pages/Dashboard.jsx'
 import Settings from './pages/Settings.jsx'
 import { Toaster } from 'react-hot-toast'
+import VerifyOTP from './pages/VerifyOTP.jsx'
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
         <Route path='/' element={<Home/>} />
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
+        <Route path='/verify-otp' element={<VerifyOTP/>} />
         <Route path='/dashboard' element={<Protected><Dashboard/></Protected>} />
         <Route path='/settings' element={<Protected><Settings/></Protected>} />
       </Routes>

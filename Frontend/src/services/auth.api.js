@@ -5,18 +5,27 @@ const api = axios.create({
     withCredentials:true
 })
 
-export async function registration({username, email, password}) {
-    try {
-      const response = await api.post("/register",{username, email, password});
+export async function sendOTP({ username, email, password }) {
+  try {
+    const response = await api.post("/send-otp", {username,email,password,});
 
-      console.log("Registration Successful:");
+    return response.data;
 
-      return response.data
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-    } 
-    catch (error) {
-      console.error(`Registration failed, ${error}`);
-    }
+export async function registration({ email, otp }) {
+  try {
+    const response = await api.post("/register", {email,otp,});
+
+    return response.data;
+    
+  } catch (error) {
+    console.error(error);
+
+  }
 }
 
 

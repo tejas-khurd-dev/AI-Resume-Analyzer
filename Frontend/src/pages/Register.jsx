@@ -10,7 +10,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ username: "", email: "", password: "" });
 
-  const {loading, handleRegistration} = useAuth()
+  const { loading, handleSendOTP } = useAuth();
 
   const navigate = useNavigate()
 
@@ -22,8 +22,12 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    handleRegistration(form)
-    navigate("/")
+    handleSendOTP(form)
+    navigate("/verify-otp", {
+      state: {
+        email: form.email,
+      },
+    });
   };
 
   if(loading){

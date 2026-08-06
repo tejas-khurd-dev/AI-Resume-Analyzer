@@ -85,9 +85,9 @@ const interviewReportJsonSchema = {
             items: {
                 type: "object",
                 properties: {
-                    day: {
+                    goal: {
                         type: "integer",
-                        description: "The day number in the preparation plan, starting at 1."
+                        description: "The goal number in the preparation plan, starting at 1."
                     },
                     focus: {
                         type: "string",
@@ -99,7 +99,7 @@ const interviewReportJsonSchema = {
                         description: "Concrete, actionable tasks to complete on this day."
                     }
                 },
-                required: ["day", "focus", "tasks"]
+                required: ["goal", "focus", "tasks"]
             }
         }
     },

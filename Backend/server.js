@@ -3,7 +3,7 @@ import config from "./src/config/config.js"
 import connectDB from "./src/config/database.js"
 import generateInterviewReport from "./src/services/ai.service.js";
 
-import { dummyResume, dummySelfDescription, dummyJobDescription } from "./testData.js";
+// import { dummyResume, dummySelfDescription, dummyJobDescription } from "./testData.js";
 
 // TEST GENAI WORKING
 

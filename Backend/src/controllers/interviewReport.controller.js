@@ -1,6 +1,8 @@
 import * as pdfParse from "pdf-parse";
 import generateInterviewReport from "../services/ai.service.js";
 import interviewReportModel from "../models/interviewReport.model.js";
+import otpModel from "../models/otp.model.js";
+import sendOTP  from "../services/sendMail.service.js";
 
 async function createInterviewReport(req, res) {
     try {

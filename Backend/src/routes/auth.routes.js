@@ -1,8 +1,10 @@
 import {Router} from "express";
-import { handleUserGetMe, handleUserLogin, handleUserLogout, handleUserRegistration } from "../controllers/auth.contoller.js";
+import { handleUserGetMe, handleUserLogin, handleUserLogout, handleUserRegistration, handleUserVerification } from "../controllers/auth.contoller.js";
 import { authUserMiddleware } from "../middlewares/auth.middleware.js";
 
 const authRouter = Router()
+
+authRouter.post("/send-otp", handleUserVerification)
 
 authRouter.post("/register", handleUserRegistration)
 
