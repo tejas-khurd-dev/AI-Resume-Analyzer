@@ -9,7 +9,7 @@ export async function registration({username, email, password}) {
     try {
       const response = await api.post("/register",{username, email, password});
 
-      console.log("Registration Successful:", response.data);
+      console.log("Registration Successful:");
 
       return response.data
 
@@ -24,7 +24,7 @@ export async function login({email, password}) {
     try {
       const response = await api.post("/login",{email, password});
 
-      console.log("Login Successful:", response.data);
+      console.log("Login Successful:");
 
       return response.data
 
@@ -52,13 +52,12 @@ export async function getMe() {
     try {
       const response = await api.get("/get-me");
 
-      console.log("User fetch successful:", response.data);
-
+      console.log("User fetch successful:");
 
       return response.data
 
     } 
     catch (error) {
-      console.error(`Logout failed, ${error}`);
+      console.error(error);
     }
 }
