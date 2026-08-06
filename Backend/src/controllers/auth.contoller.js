@@ -86,7 +86,7 @@ export async function handleUserGetMe(req, res) {
 
     const user =   await userModel.findById(req.user.id)
 
-    return res.status(200).json({msg: "user fetch successful", username: user.username, email: user.email});
+    return res.status(200).json({msg: "user fetch successful", user});
 
 }
 
