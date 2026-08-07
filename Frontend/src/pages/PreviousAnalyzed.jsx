@@ -78,10 +78,7 @@ const PreviousAnalyzed = () => {
 
               <div className="text-right shrink-0">
                 <span
-                  className={`text-lg font-bold ${scoreColor(
-                    report.matchScore
-                  )}`}
-                >
+                  className={`text-lg font-bold ${scoreColor(report.matchScore)}`}>
                   {report.matchScore}
                 </span>
                 <span className="text-xs text-muted">/100</span>

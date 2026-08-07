@@ -149,7 +149,7 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
         4. Identify the candidate's skillGap: skills required by the job description
         that are missing or weak in the resume/self description, each with a
         severity of "low", "medium", or "high".
-        5. Build a preparationPlan of at least 5 days, each with a day number, a focus
+        5. Build a preparationPlan of at least 5 goals, each with a goal number, a focus
         area, and a list of concrete tasks.
     `;
 
