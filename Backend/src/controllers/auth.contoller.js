@@ -61,7 +61,7 @@ export async function handleUserRegistration(req, res) {
     const user = await userModel.create({
         username: otpData.username,
         email: otpData.email,
-        password: otpData.password, // already hashed
+        password: otpData.password, 
     });
 
     await otpModel.deleteOne({ _id: otpData._id });
@@ -124,7 +124,7 @@ export async function handleUserLogout(req, res) {
 
 export async function handleUserGetMe(req, res) {
 
-    const user =   await userModel.findById(req.user.id)
+    const user = await userModel.findById(req.user.id)
 
     return res.status(200).json({msg: "user fetch successful", user});
 

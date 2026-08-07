@@ -12,6 +12,10 @@ const ai = new GoogleGenAI({
 const interviewReportJsonSchema = {
     type: "object",
     properties: {
+        title: {
+            type: "string",
+            description: "A short, descriptive title for this report, e.g. 'Full Stack Developer Interview Prep' or 'React Developer @ Acme Corp'. Should reflect the role/company from the job description if identifiable."
+        },
         matchScore: {
             type: "integer",
             description: "A score from 0 to 100 indicating how well the candidate's resume and self description match the job description."
@@ -81,7 +85,7 @@ const interviewReportJsonSchema = {
         },
         preparationPlan: {
             type: "array",
-            description: "A day-by-day preparation plan leading up to the interview, ordered by day.",
+            description: "A goal-by-goal preparation plan leading up to the interview, ordered sequentially.",
             items: {
                 type: "object",
                 properties: {
@@ -104,6 +108,7 @@ const interviewReportJsonSchema = {
         }
     },
     required: [
+        "title",
         "matchScore",
         "technicalQuestions",
         "behavioralQuestions",
@@ -160,8 +165,6 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
 
     const generated = interviewReportSchema.parse(JSON.parse(interaction.output_text));
 
-    // Merge AI-generated fields with the raw inputs so the result matches
-    // interviewReportSchema (Mongoose) exactly and can be saved directly.
     return {
         jobDescription,
         resume,

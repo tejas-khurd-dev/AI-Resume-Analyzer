@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import Features from "../components/Features";
+import FeaturesOverview from "../components/FeaturesOverview";
 import Footer from "../components/Footer";
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
     <div className="bg-bg min-h-screen">
       <Navbar />
       <Hero />
-      <Features />
+      <FeaturesOverview />
       <Footer />
     </div>
   );

@@ -1,42 +1,48 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { logoIcon as LogoIcon, navLinks } from "../assets/assets";
+import { logoIcon, navLinks } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const {user, handleLogout} = useAuth()
+  const { user, handleLogout } = useAuth();
+
 
   return (
-    <nav className="w-full sticky top-0 z-20 bg-bg border-b border-border">
-      <div className="max-w-7xl mx-auto! flex items-center justify-between px-4! sm:px-6! lg:px-8! py-4! md:py-5!">
-        <div onClick={()=> {if(user) navigate("/")}} className="flex items-center gap-2 cursor-pointer">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-gradFrom to-gradTo shrink-0">
-            <LogoIcon size={18} className="text-white" />
+    <nav className="w-full sticky top-0 z-20 bg-bg/95 backdrop-blur border-b border-border">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 md:py-5">
+        <button
+          type="button"
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-left"
+        >
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-700/70 border border-border shrink-0">
+            <img src={logoIcon} alt="" />
           </div>
-          <span className="font-semibold text-lg text-primary">ResumeAI</span>
-        </div>
+          <span className="font-semibold text-lg text-primary">SkillSync AI</span>
+        </button>
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <p
+            <button
               key={link.name}
-              href={link.href}
+              type="button"
+              onClick={()=> navigate(`/${link.name}`)}
               className="text-sm text-muted hover:text-primary transition"
             >
               {link.name}
-            </p>
+            </button>
           ))}
         </div>
 
         <div className="hidden md:flex items-center gap-3 lg:gap-4">
           {user ? (
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-r from-gradFrom to-gradTo flex items-center justify-center text-white font-semibold shrink-0">
+            <div onClick={()=> navigate('/settings')} className="flex items-center gap-2 cursor-pointer">
+              <div className="w-9 h-9 rounded-full bg-slate-700 border border-border flex items-center justify-center text-white font-semibold shrink-0">
                 {user.username?.charAt(0).toUpperCase()}
               </div>
 
@@ -45,10 +51,10 @@ const Navbar = () => {
               </span>
 
               <button
-                onClick={handleLogout}
-                className="text-sm text-red-500 hover:text-red-600 bg-gray-400/10 rounded-2xl px-3! py-1.5! whitespace-nowrap"
+                onClick={()=>{handleLogout(); navigate('/')}}
+                className="text-sm text-red-400 hover:text-red-300 bg-red-500/10 rounded-full px-3 py-1.5 whitespace-nowrap border border-red-500/20"
               >
-                logout
+                Log out
               </button>
             </div>
           ) : (
@@ -62,7 +68,7 @@ const Navbar = () => {
 
               <button
                 onClick={() => navigate("/register")}
-                className="text-sm font-medium px-3! lg:px-4! py-2! rounded-lg text-white bg-gradient-to-r from-gradFrom to-gradTo hover:opacity-90 transition whitespace-nowrap"
+                className="text-sm font-medium px-3 lg:px-4 py-2 rounded-lg text-primary bg-card border border-border hover:border-slate-500 transition whitespace-nowrap"
               >
                 Get Started
               </button>
@@ -80,24 +86,44 @@ const Navbar = () => {
       </div>
 
       {open && (
-        <div className="md:hidden px-4! sm:px-6! pb-5! flex flex-col gap-4 border-t border-border">
+        <div className="md:hidden px-4 sm:px-6 pb-5 flex flex-col gap-4 border-t border-border bg-bg">
           {navLinks.map((link) => (
-            <a
+            <button
               key={link.name}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="text-sm text-muted hover:text-primary transition pt-4!"
+              type="button"
+              onClick={() => handleNavClick(link.href)}
+              className="text-left text-sm text-muted hover:text-primary transition pt-4"
             >
               {link.name}
-            </a>
+            </button>
           ))}
-          <div className="flex items-center gap-3 pt-1!">
-            <button className="flex-1 text-sm font-medium py-2! rounded-lg text-primary border border-border">
-              Login
-            </button>
-            <button className="flex-1 text-sm font-medium py-2! rounded-lg text-white bg-gradient-to-r from-gradFrom to-gradTo">
-              Get Started
-            </button>
+          <div className="flex items-center gap-3 pt-1">
+            {user ? (
+              <button
+                className="flex-1 text-sm font-medium py-2 rounded-lg text-red-300 border border-red-500/20 bg-red-500/10"
+                onClick={handleLogout}
+                type="button"
+              >
+                Log out
+              </button>
+            ) : (
+              <>
+                <button
+                  className="flex-1 text-sm font-medium py-2 rounded-lg text-primary border border-border"
+                  onClick={() => navigate("/login")}
+                  type="button"
+                >
+                  Login
+                </button>
+                <button
+                  className="flex-1 text-sm font-medium py-2 rounded-lg text-primary bg-card border border-border"
+                  onClick={() => navigate("/register")}
+                  type="button"
+                >
+                  Get Started
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

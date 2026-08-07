@@ -3,7 +3,8 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import AuthLayout from "../components/AuthLayout";
 import { useAuth } from "../hooks/useAuth.js";
 import Loading from "../components/Loading.jsx";
-import {useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 const Login = () => {
@@ -22,8 +23,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    handleLogin(form)
-    navigate("/")
+    const user = await handleLogin(form);
+
+    if (user) {
+      toast.success("Logged in successfully");
+      navigate("/dashboard");
+    }
   }
 
   if(loading){
@@ -32,20 +37,20 @@ const Login = () => {
 
   return (
     <AuthLayout>
-      <h2 className="text-2xl font-bold mb-2! text-primary">Welcome back</h2>
-      <p className="text-sm mb-8! text-muted">
+      <h2 className="text-2xl font-bold mb-2 text-primary">Welcome back</h2>
+      <p className="text-sm mb-8 text-muted">
         Sign in to continue to your dashboard.
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5!">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div>
-          <label className="block text-xs font-medium mb-2! text-muted">
+          <label className="block text-xs font-medium mb-2 text-muted">
             Email address
           </label>
           <div className="relative">
             <Mail
               size={16}
-              className="absolute left-3! top-1/2 -translate-y-1/2 text-muted"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
             />
             <input
               type="email"
@@ -54,13 +59,13 @@ const Login = () => {
               value={form.email}
               onChange={handleChange}
               placeholder="name@company.com"
-              className="w-full pl-9! pr-3! py-2.5! rounded-lg bg-card border border-border text-primary text-sm placeholder:text-muted outline-none focus:border-gradFrom transition"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-card border border-border text-primary text-sm placeholder:text-muted outline-none focus:border-gradFrom transition"
             />
           </div>
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-2!">
+          <div className="flex items-center justify-between mb-2">
             <label className="block text-xs font-medium text-muted">
               Password
             </label>
@@ -68,7 +73,7 @@ const Login = () => {
           <div className="relative">
             <Lock
               size={16}
-              className="absolute left-3! top-1/2 -translate-y-1/2 text-muted"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
             />
             <input
               type={showPassword ? "text" : "password"}
@@ -77,12 +82,12 @@ const Login = () => {
               value={form.password}
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full pl-9! pr-9! py-2.5! rounded-lg bg-card border border-border text-primary text-sm placeholder:text-muted outline-none focus:border-gradFrom transition"
+              className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-card border border-border text-primary text-sm placeholder:text-muted outline-none focus:border-gradFrom transition"
             />
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
-              className="absolute right-3! top-1/2 -translate-y-1/2 text-muted"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted"
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
@@ -91,17 +96,18 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full py-2.5! rounded-lg font-medium text-white bg-gradient-to-r from-gradFrom to-gradTo hover:opacity-90 transition mt-2!"
+          disabled={loading}
+          className="w-full py-2.5 rounded-lg font-medium text-primary bg-card border border-border hover:border-slate-500 transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           Log in
         </button>
       </form>
 
-      <p className="text-sm text-center mt-6! text-muted">
+      <p className="text-sm text-center mt-6 text-muted">
         Don&apos;t have an account?{" "}
-        <a href="/register" className="text-primary font-medium hover:opacity-80">
+        <Link to="/register" className="text-primary font-medium hover:opacity-80">
           Register
-        </a>
+        </Link>
       </p>
     </AuthLayout>
   );

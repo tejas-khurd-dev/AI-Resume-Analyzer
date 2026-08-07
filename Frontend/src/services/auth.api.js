@@ -32,9 +32,6 @@ export async function registration({ email, otp }) {
 export async function login({email, password}) {
     try {
       const response = await api.post("/login",{email, password});
-
-      console.log("Login Successful:");
-
       return response.data
 
     } 
@@ -45,10 +42,7 @@ export async function login({email, password}) {
 
 export async function logout() {
     try {
-      const response = await api.get("/logout");
-
-      console.log("Logout Successful:");
-
+      await api.get("/logout");
       return 
 
     } 
@@ -60,9 +54,6 @@ export async function logout() {
 export async function getMe() {
     try {
       const response = await api.get("/get-me");
-
-      console.log("User fetch successful:");
-
       return response.data
 
     } 

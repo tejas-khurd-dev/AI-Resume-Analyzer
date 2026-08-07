@@ -20,21 +20,20 @@ const VerifyOTP = () => {
     e.preventDefault();
 
     if (!email) {
-        toast.error("Email not found. Please register again.");
+      toast.error("Email not found. Please register again.");
         navigate("/register");
         return;
     }
 
-
-    await handleRegistration({
-    email,
-    otp,
+    const user = await handleRegistration({
+      email,
+      otp,
     });
 
-    toast("Account created successfully");
-
-    navigate("/");
- 
+    if (user) {
+      toast.success("Account created successfully");
+      navigate("/dashboard");
+    }
     };
 
   if (loading) {
@@ -43,26 +42,26 @@ const VerifyOTP = () => {
 
   return (
     <AuthLayout>
-      <h2 className="text-2xl font-bold mb-2! text-primary">
+      <h2 className="text-2xl font-bold mb-2 text-primary">
         Verify OTP
       </h2>
 
-      <p className="text-sm mb-8! text-muted">
+      <p className="text-sm mb-8 text-muted">
         Enter the 6-digit code sent to
         <br />
         <span className="font-medium text-primary">{email}</span>
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5!">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div>
-          <label className="block text-xs font-medium mb-2! text-muted">
+          <label className="block text-xs font-medium mb-2 text-muted">
             OTP
           </label>
 
           <div className="relative">
             <ShieldCheck
               size={16}
-              className="absolute left-3! top-1/2 -translate-y-1/2 text-muted"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
             />
 
             <input
@@ -71,14 +70,15 @@ const VerifyOTP = () => {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter OTP"
-              className="w-full pl-9! pr-3! py-2.5! rounded-lg bg-card border border-border text-primary text-sm placeholder:text-muted outline-none focus:border-gradFrom transition"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-card border border-border text-primary text-sm placeholder:text-muted outline-none focus:border-gradFrom transition"
             />
           </div>
         </div>
 
         <button
           type="submit"
-          className="w-full py-2.5! rounded-lg font-medium text-white bg-gradient-to-r from-gradFrom to-gradTo hover:opacity-90 transition"
+          disabled={loading}
+          className="w-full py-2.5 rounded-lg font-medium text-primary bg-card border border-border hover:border-slate-500 transition disabled:opacity-60 disabled:cursor-not-allowed"
         >
           Verify OTP
         </button>

@@ -1,7 +1,6 @@
-    import { useContext, useEffect } from "react";
-    import { AuthContext } from "../services/auth.context.jsx";
-    import { login, registration, getMe, logout, sendOTP } from "../services/auth.api";
-    import toast from "react-hot-toast";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../services/auth.context.jsx";
+import { login, registration, getMe, logout, sendOTP } from "../services/auth.api";
 
 
     export const useAuth = () =>{
@@ -11,12 +10,12 @@
         const handleSendOTP = async ({ username, email, password }) => {
             setLoading(true);
             try {
-                await sendOTP({username,email,password,});
-
-                return;
+                const data = await sendOTP({ username, email, password });
+                return data;
 
             } catch (err) {
                 console.log(err);
+                return null;
  
             } finally {
                 setLoading(false);
@@ -28,9 +27,11 @@
             try {
                 const data = await login({email, password})
                 setUser(data.user)
+                return data.user
             }
             catch(err){
                 console.log(err)
+                return null
             }
             finally{
                 setLoading(false)
@@ -42,9 +43,11 @@
             try {
                 const data = await registration({email, otp})
                 setUser(data.user)
+                return data.user
             }
             catch(err){
                 console.log(err)
+                return null
             }
             finally{
                 setLoading(false)
@@ -54,7 +57,7 @@
         const handleLogout = async () => {
             setLoading(true)
             try{
-                const data = await logout()
+                await logout()
                 setUser(null)
             }
             catch(err){
@@ -82,7 +85,7 @@
             }
 
             getAndSetUser()
-        }, [])
+        }, [setLoading, setUser])
 
         return {
             user,
@@ -93,4 +96,3 @@
             handleSendOTP
         };
     }
-

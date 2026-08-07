@@ -2,22 +2,25 @@
 
 @theme {
   --color-bg: #0D0F1A;
-  --color-card: #151827;
-  --color-border: #2A2E42;
-  --color-primary: #F5F5F7;
-  --color-muted: #9CA3AF;
-  --color-gradFrom: #6366F1;
-  --color-gradTo: #8B5CF6;
+  --color-card: #141827;
+  --color-border: #252A3A;
+  --color-primary: #F3F4F6;
+  --color-muted: #9AA3B2;
+  --color-gradFrom: #334155;
+  --color-gradTo: #475569;
   --color-success: #34D399;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-primary);
+  color-scheme: dark;
+  font-family: "Inter", "Segoe UI", sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+
+
+html {
+  scroll-behavior: smooth;
 }
+

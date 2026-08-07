@@ -1,11 +1,11 @@
-import { FileSearch, KeyRound, TrendingUp, Target, ScanLine, LayoutDashboard, History, Settings } from "lucide-react";
+import { FileSearch, KeyRound, TrendingUp, Target, LayoutDashboard, History, Settings } from "lucide-react";
+import logo from "../assets/logo.svg"
 
-export const logoIcon = ScanLine;
+export const logoIcon = logo;
 
 export const navLinks = [
   { name: "Features", href: "#features" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "How it Works", href: "#how" },
+  { name: "Dashboard", href: "/dashboard" },
 ];
 
 export const features = [
@@ -40,13 +40,12 @@ export const trustBadge = {
 };
 
 export const footerLinks = [
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
-  { name: "Privacy", href: "#privacy" },
+  { name: "Features", href: "#features" },
+  { name: "Dashboard", href: "/dashboard" },
 ];
 
 export const sideItems = [
   { name: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
-  { name: "Previous Analyzed", to: "/dashboard", icon: History },
+  { name: "Previous Analyzed", to: "/previous-analyzed", icon: History },
   { name: "Settings", to: "/settings", icon: Settings },
 ]

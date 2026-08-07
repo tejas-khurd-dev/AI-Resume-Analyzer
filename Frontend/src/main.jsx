@@ -3,11 +3,14 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./services/auth.context.jsx";
+import { ReportProvider } from "./services/report.context.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AuthProvider>
+    <ReportProvider>
       <App />
+    </ReportProvider>
     </AuthProvider>
   </BrowserRouter>
 );

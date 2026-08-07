@@ -8,6 +8,9 @@ import Dashboard from './pages/Dashboard.jsx'
 import Settings from './pages/Settings.jsx'
 import { Toaster } from 'react-hot-toast'
 import VerifyOTP from './pages/VerifyOTP.jsx'
+import Report from './pages/Report.jsx'
+import PreviousAnalyzed from './pages/PreviousAnalyzed.jsx'
+import Features from './pages/Features.jsx'
 
 
 const App = () => {
@@ -17,7 +20,6 @@ const App = () => {
         position="top-center"
         containerStyle={{
           top: 88,
-          transform: "translateX(60px)",
         }}
         toastOptions={{
           style: {
@@ -33,8 +35,12 @@ const App = () => {
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/verify-otp' element={<VerifyOTP/>} />
+        <Route path='/features' element={<Features/>} />
+
         <Route path='/dashboard' element={<Protected><Dashboard/></Protected>} />
         <Route path='/settings' element={<Protected><Settings/></Protected>} />
+        <Route path='/dashboard/report/:reportID' element={<Protected><Report/></Protected>} />
+        <Route path='/previous-analyzed' element={<Protected><PreviousAnalyzed/></Protected>} />
       </Routes>
     </>
   )

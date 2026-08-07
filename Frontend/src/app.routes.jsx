@@ -1,9 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 
-export default createBrowserRouter([
+const router = createBrowserRouter([
     {
         path: '/login', element:<Login/>
     },
     
-])
+]);
+
+export default router;

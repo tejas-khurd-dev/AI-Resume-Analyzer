@@ -82,12 +82,17 @@ const interviewReportSchema  = new mongoose.Schema({
     preparationPlan: [preparationPlanSchema],
     user:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
+        ref: "users",
+        required: true
+    },
+    title:{
+        type:String,
+        required: true
     }
 
 }, {timestamps:true})
 
 
-const interviewReportModel = mongoose.model("InterviewReport", interviewReportSchema)
+const reportModel = mongoose.model("analyzeReports", interviewReportSchema)
 
-export default interviewReportModel
+export default reportModel

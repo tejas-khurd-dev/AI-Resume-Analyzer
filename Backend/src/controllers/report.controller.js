@@ -1,10 +1,9 @@
 import * as pdfParse from "pdf-parse";
 import generateInterviewReport from "../services/ai.service.js";
-import interviewReportModel from "../models/interviewReport.model.js";
-import otpModel from "../models/otp.model.js";
-import sendOTP  from "../services/sendMail.service.js";
+import reportModel from "../models/report.model.js";
 
-async function createInterviewReport(req, res) {
+
+export async function createReport(req, res) {
     try {
         const { selfDescription, jobDescription } = req.body;
 
@@ -15,7 +14,7 @@ async function createInterviewReport(req, res) {
             });
         }
 
-        if (!req.file || !selfDescription) {
+        if (!req.file && !selfDescription) {
             return res.status(400).json({
                 success: false,
                 message: "resume (PDF file) or selfDescription are required"
@@ -42,21 +41,51 @@ async function createInterviewReport(req, res) {
             selfDescription,
             jobDescription
         });
+            
 
-        const savedReport = await interviewReportModel.create(reportData);
+        const savedReport = await reportModel.create({...reportData, user:req.user.id});
 
         return res.status(201).json({
             success: true,
-            data: savedReport
+            report: savedReport
         });
     } catch (error) {
-        console.error("createInterviewReport error:", error);
+        if (error.status === 429 || error.statusCode === 429) {
+            return res.status(429).json({
+                success: false,
+                message: "Gemini API rate limit exceeded. Please try again in a few seconds."
+            });
+        }
+
+        console.error(error);
+
         return res.status(500).json({
             success: false,
-            message: "Failed to generate interview report",
-            error: error.message
+            message: error.message
         });
     }
 }
 
-export { createInterviewReport };
+export async function getReportById(req, res) {
+    const {reportID} = req.params
+    const report = await reportModel.findOne({_id: reportID, user:req.user.id})
+
+    if(!report) return res.status(404).json({msg:"report not found"})
+
+    res.status(200).json({
+        msg: "report fetched successfully",
+        report
+    })
+}
+
+export async function getReports(req, res) {
+  
+    const reports = await reportModel.find({user:req.user.id})
+;
+    if(reports.length === 0) return res.status(404).json({msg:"report not found"})
+
+    res.status(200).json({
+        msg: "report fetched successfully",
+        reports
+    })
+}
