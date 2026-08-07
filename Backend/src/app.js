@@ -7,7 +7,7 @@ import aiReportRouter from "./routes/aiReport.routes.js";
 const app = express()
 
 app.use(cors({
-  origin: "https://skillsync-ai-tejasproject.vercel.app",
+  origin: "https://ai-resume-analyzer-9n23.onrender.com",
   credentials: true,
 }));
 
